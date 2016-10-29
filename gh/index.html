@@ -1,4 +1,25 @@
 <html>
+<head>
+<script>
+// Get the authorization code from the url that was returned by GitHub
+
+try {
+    var authCode = getAuthCode(window.location.href);
+    alert(authCode);
+} catch (err) {
+    console.log(err)   
+}
+// Extract the auth code from the original URL
+
+function getAuthCode(url){
+    var error = url.match(/[&\?]error=([^&]+)/);
+    if (error) {
+        throw 'Error getting authorization code: ' + error[1];
+    }
+    return url.match(/[&\?]code=([\w\/\-]+)/)[1];
+}    
+</script>
+</head>
 <body>
 <a href="https://github.com/login/oauth/authorize?client_id=a20187032ce22b17f1f1&redirect_uri=http://devkini.github.io/labs/gh/&scope=repo&state=1237656">Login with Github</a>
 </body>
